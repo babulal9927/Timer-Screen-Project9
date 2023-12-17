@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer Webpage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h3>Timer Clock</h3>
+    <br>
+    <div id="timer">00:00:00</div>
+    <button class="button" onclick="startTimer()">Start</button>
+    <button class="button" onclick="stopTimer()">Stop</button>
+    <button class="button" onclick="resetTimer()">Reset</button>
+  </div>
+
+<script>
+  let timer;
+  let seconds = 0;
+  let minutes = 1;
+  let hours = 0;
+
+  function startTimer() {
+    timer = setInterval(updateTimer, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    updateTimer();
+  }
+
+  function updateTimer() {
+    seconds++;
+
+    if (seconds === 60) {
+      seconds = 0;
+      minutes++;
+
+      if (minutes === 60) {
+        minutes = 0;
+        hours++;
+      }
+    }
+
+    const formattedTime = `${padNumber(hours)}:${padNumber(minutes)}:${padNumber(seconds)}`;
+    document.getElementById('timer').innerText = formattedTime;
+  }
+
+  function padNumber(number) {
+    return (number < 10) ? `0${number}` : number;
+  }
+</script>
+
+</body>
+</html>
